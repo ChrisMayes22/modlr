@@ -1,0 +1,9 @@
+{
+  "name": "modlr",
+  "version": "1.0.0",
+  "description": "Collects data from students relevant to tests",
+  "main": "index.js",
+  "author": "Chris Mayes",
+  "license": "MIT",
+  "private": false
+}
