@@ -1,12 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-class Test {
-    constructor(key, id, type, sections, scoreScale) {
-        this.key = key;
-        this.id = id;
-        this.type = type;
-        this.sections = sections;
-        this.scoreScale = scoreScale;
+class Session {
+    constructor(studentId, testId, sectionId, date, grade, answers) {
+        this.studentId = studentId;
+        this.testId = testId;
+        this.sectionId = sectionId;
+        this.date = date;
+        this.grade = grade;
+        this.answers = answers;
     }
 }
-exports.default = Test;
+exports.default = Session;

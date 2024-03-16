@@ -1,14 +1,12 @@
+import Session from "./Session";
 
-class Session {
+class Student {
     constructor(
-        public studentId: string,
-        public testId: string,
-        public sectionId: string,
-        public date: Date,
-        public grade: number,
-        public answers: string[]
+        public key: number,
+        public fName: string,
+        public lName: string,
+        public pastWork: Session[]
     ) {}
 }
 
-export default Session;
-
+export default Student;

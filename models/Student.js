@@ -1,13 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-class Session {
-    constructor(studentId, testId, sectionId, date, grade, answers) {
-        this.studentId = studentId;
-        this.testId = testId;
-        this.sectionId = sectionId;
-        this.date = date;
-        this.grade = grade;
-        this.answers = answers;
+class Student {
+    constructor(key, fName, lName, pastWork) {
+        this.key = key;
+        this.fName = fName;
+        this.lName = lName;
+        this.pastWork = pastWork;
     }
 }
-exports.default = Session;
+exports.default = Student;

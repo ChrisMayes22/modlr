@@ -1,4 +1,13 @@
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -13,19 +22,50 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
+const sequelize_typescript_1 = require("sequelize-typescript");
 const db_1 = __importDefault(require("../db/db"));
-class ProblemModel extends sequelize_1.Model {
-    constructor(problemId, parentId, problemTypes, prompt, text, answerChoices, correctAnswer) {
-        super();
-        this.problemId = problemId;
-        this.parentId = parentId;
-        this.problemTypes = problemTypes;
-        this.prompt = prompt;
-        this.text = text;
-        this.answerChoices = answerChoices;
-        this.correctAnswer = correctAnswer;
+let ProblemModel = class ProblemModel extends sequelize_1.Model {
+    static createProblem(parentId, problemTypes, prompt, text, answerChoices, correctAnswer) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.create({
+                parentId: parentId,
+                problemTypes: problemTypes, prompt: prompt, text: text,
+                answerChoices: answerChoices, correctAnswer: correctAnswer
+            });
+        });
     }
-}
+};
+__decorate([
+    sequelize_typescript_1.Column,
+    __metadata("design:type", Number)
+], ProblemModel.prototype, "problemId", void 0);
+__decorate([
+    sequelize_typescript_1.Column,
+    __metadata("design:type", Number)
+], ProblemModel.prototype, "parentId", void 0);
+__decorate([
+    sequelize_typescript_1.Column,
+    __metadata("design:type", String)
+], ProblemModel.prototype, "problemTypes", void 0);
+__decorate([
+    sequelize_typescript_1.Column,
+    __metadata("design:type", String)
+], ProblemModel.prototype, "prompt", void 0);
+__decorate([
+    sequelize_typescript_1.Column,
+    __metadata("design:type", String)
+], ProblemModel.prototype, "text", void 0);
+__decorate([
+    sequelize_typescript_1.Column,
+    __metadata("design:type", String)
+], ProblemModel.prototype, "answerChoices", void 0);
+__decorate([
+    sequelize_typescript_1.Column,
+    __metadata("design:type", String)
+], ProblemModel.prototype, "correctAnswer", void 0);
+ProblemModel = __decorate([
+    sequelize_typescript_1.Table
+], ProblemModel);
 function getProblemInstance() {
     return __awaiter(this, void 0, void 0, function* () {
         const sequelize = yield (0, db_1.default)();
@@ -58,8 +98,14 @@ function getProblemInstance() {
                 },
                 answerChoices: {
                     type: sequelize_1.DataTypes.STRING,
-                    defaultValue: 'A, B, C, D',
-                    allowNull: false
+                    defaultValue: 'A,B,C,D',
+                    allowNull: false,
+                    get() {
+                        return this.getDataValue('answerChoices').split(',');
+                    },
+                    // set(answers: string[]){
+                    //     this.setDataValue('answerChoices', answers.join(','));
+                    // }
                 },
                 correctAnswer: {
                     type: sequelize_1.DataTypes.STRING,
@@ -72,20 +118,4 @@ function getProblemInstance() {
         }
     });
 }
-function createProblem(parentId, problemTypes, prompt, text, answerChoices, correctAnswer) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const Problem = yield getProblemInstance();
-        if (Problem !== undefined) {
-            const problemInstance = yield Problem.create({
-                parentId: parentId,
-                problemTypes: problemTypes, prompt: prompt, text: text,
-                answerChoices: answerChoices, correctAnswer: correctAnswer
-            });
-        }
-        else {
-            throw Error('Problem was undefined!');
-        }
-    });
-}
-createProblem(1, 'conciseness', 'Hi', 'Hey', 'A', 'A');
 exports.default = ProblemModel;

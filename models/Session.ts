@@ -1,13 +1,14 @@
-import Section from "./Section";
 
-class Test {
+class Session {
     constructor(
-        public key: number,
-        public id: string,
-        public type: string,
-        public sections: Section[],
-        public scoreScale: number[]
+        public studentId: string,
+        public testId: string,
+        public sectionId: string,
+        public date: Date,
+        public grade: number,
+        public answers: string[]
     ) {}
 }
 
-export default Test
+export default Session;
+
