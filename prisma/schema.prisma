@@ -14,31 +14,31 @@ datasource db {
 }
 
 model Exam {
-  id         Int       @id @default(autoincrement())
-  type       String    @default("ACT")
-  sections   Section[]
-  scoreScale String    @default("ERR: Add a scorescale")
+  id       Int       @id @default(autoincrement())
+  type     String    @default("ACT")
+  sections Section[]
 }
 
 model Section {
   id          Int       @id @default(autoincrement())
   exam        Exam      @relation(fields: [examId], references: [id])
+  scoreScale  String    @default("ERR: Add a scorescale")
   examId      Int
   sectionType String    @default("English")
   problems    Problem[]
 }
 
 model Problem {
-  id            Int     @id @default(autoincrement())
-  problemTypes  String  @default("Default Problem Type")
-  prompt        String  @default("Default Prompt")
-  text          String  @default("Default Text")
-  answerChoices String  @default("A,B,C,D")
-  correctAnswer String  @default("A")
-  section       Section @relation(fields: [sectionId], references: [id])
+  id            Int      @id @default(autoincrement())
+  problemTypes  String   @default("Default Problem Type")
+  prompt        String   @default("Default Prompt")
+  text          String   @default("Default Text")
+  answerChoices String   @default("A,B,C,D")
+  correctAnswer String   @default("A")
+  section       Section  @relation(fields: [sectionId], references: [id])
   sectionId     Int
-  session       Session @relation(fields: [sessionId], references: [id])
-  sessionId     Int
+  session       Session? @relation(fields: [sessionId], references: [id])
+  sessionId     Int?
 }
 
 model Student {

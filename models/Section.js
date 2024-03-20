@@ -1,11 +1,11 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-class Section {
-    constructor(key, id, parentId, problems) {
-        this.key = key;
-        this.id = id;
-        this.parentId = parentId;
-        this.problems = problems;
-    }
-}
-exports.default = Section;
+// import ProblemModel from "./Problem";
+// class Section {
+//     constructor(
+//         public key: number,
+//         public id: string,
+//         public parentId: string,
+//         public problems: ProblemModel[]
+//     ) {}
+// }
+// export default Section;
