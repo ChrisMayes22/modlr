@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./db.sqlite"
+}
+
+model Exam {
+  id       Int       @id @default(autoincrement())
+  type     String    @default("ACT")
+  sections Section[]
+}
+
+model Section {
+  id          Int       @id @default(autoincrement())
+  exam        Exam      @relation(fields: [examId], references: [id])
+  scoreScale  String    @default("ERR: Add a scorescale")
+  examId      Int
+  sectionType String    @default("English")
+  problems    Problem[]
+}
+
+model Problem {
+  id            Int      @id @default(autoincrement())
+  problemTypes  String   @default("Default Problem Type")
+  prompt        String   @default("Default Prompt")
+  text          String   @default("Default Text")
+  answerChoices String   @default("A,B,C,D")
+  correctAnswer String   @default("A")
+  section       Section  @relation(fields: [sectionId], references: [id])
+  sectionId     Int
+  session       Session? @relation(fields: [sessionId], references: [id])
+  sessionId     Int?
+}
+
+model Student {
+  id        Int       @id @default(autoincrement())
+  firstName String
+  lastName  String
+  pastWork  Session[]
+}
+
+model Session {
+  id        Int       @id @default(autoincrement())
+  student   Student   @relation(fields: [studentId], references: [id])
+  studentId Int
+  problem   Problem[]
+  date      DateTime
+  answers   String    @default("")
+}
