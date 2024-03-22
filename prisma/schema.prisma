@@ -13,17 +13,10 @@ datasource db {
   url      = "file:./db.sqlite"
 }
 
-model Exam {
-  id       Int       @id @default(autoincrement())
-  type     String    @default("ACT")
-  sections Section[]
-}
-
 model Section {
   id          Int       @id @default(autoincrement())
-  exam        Exam      @relation(fields: [examId], references: [id])
+  examType    String    @default("ACT")
   scoreScale  String    @default("ERR: Add a scorescale")
-  examId      Int
   sectionType String    @default("English")
   problems    Problem[]
 }
@@ -49,10 +42,10 @@ model Student {
 }
 
 model Session {
-  id        Int       @id @default(autoincrement())
-  student   Student   @relation(fields: [studentId], references: [id])
-  studentId Int
-  problem   Problem[]
-  date      DateTime
-  answers   String    @default("")
+  id             Int       @id @default(autoincrement())
+  student        Student   @relation(fields: [studentId], references: [id])
+  studentId      Int
+  problems       Problem[]
+  date           DateTime
+  studentAnswers String    @default("")
 }
