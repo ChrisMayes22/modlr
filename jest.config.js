@@ -19,6 +19,6 @@ exports.default = () => __awaiter(void 0, void 0, void 0, function* () {
         clearMocks: true,
         preset: 'ts-jest',
         testEnvironment: 'node',
-        setupFilesAfterEnv: [path_1.default.resolve(__dirname, '/prisma/singleton.ts')],
+        setupFilesAfterEnv: [path_1.default.resolve(__dirname, 'prisma/singleton.ts')],
     };
 });
